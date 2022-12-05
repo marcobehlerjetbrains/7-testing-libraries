@@ -1,22 +1,23 @@
-import com.jetbrains.marco.User;
+import com.jetbrains.marco.UserDto;
+import com.jetbrains.marco.service.MailService;
+import com.jetbrains.marco.service.UserService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyFirstTest {
 
-    User user = new User("Marco", 99);
+    UserDto userDto = new UserDto("Marco", 99, "marco@jetbrains.com");
 
-    List<User> users = new ArrayList<>(List.of(user));
+    List<UserDto> userDtos = new ArrayList<>(List.of(userDto));
 
-    List<User> awaitilityUsers = new ArrayList<>(List.of(user));
+    List<UserDto> awaitilityUserDtos = new ArrayList<>(List.of(userDto));
 
     @Test
     public void assertj() {
@@ -46,11 +47,19 @@ public class MyFirstTest {
       //  await().atMost(5, SECONDS).untilAsserted(() -> assertThat(awaitilityUsers.size()).isEqualTo(2));
     }
 */
+
+    @Test
+    public void mailTest() {
+        UserService userService = new UserService(new MailService());
+        boolean userRegistered = userService.register(new UserDto("Marco", 99, "marco@jetbrains.com"));
+        assertThat(userRegistered).isTrue();
+    }
+
     private void publishAddUserMessage() {
         new Thread(() -> {
             try {
                 Thread.sleep(4000);
-                awaitilityUsers.add(new User("Lisa", 99));
+                awaitilityUserDtos.add(new UserDto("Lisa", 99, "lisa@jetbrains.com"));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -58,7 +67,7 @@ public class MyFirstTest {
     }
 
     private Callable<Boolean> newUserWasAdded() {
-        return () -> awaitilityUsers.size() == 2;
+        return () -> awaitilityUserDtos.size() == 2;
     }
 
 }
