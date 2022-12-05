@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 public class TestContainersTest {
 
-    private RedisBackedCache underTest;
+    private RedisCache redisCache;
 
     // container {
     @Container
@@ -27,23 +27,23 @@ public class TestContainersTest {
         Integer port = redis.getFirstMappedPort();
 
         // Now we have an address and port for Redis, no matter where it is running
-        underTest = new RedisBackedCache(address, port);
+        redisCache = new RedisCache(address, port);
     }
 
     @Test
     public void testSimplePutAndGet() {
-        underTest.put("test", "example");
+        redisCache.put("test", "example");
 
-        String retrieved = underTest.get("test");
+        String retrieved = redisCache.get("test");
         assertThat(retrieved).isEqualTo("example");
     }
 }
 
-class RedisBackedCache {
+class RedisCache {
 
     private final StatefulRedisConnection<String, String> connection;
 
-    public RedisBackedCache(String hostname, Integer port) {
+    public RedisCache(String hostname, Integer port) {
         RedisClient client = RedisClient.create(String.format("redis://%s:%d/0", hostname, port));
         connection = client.connect();
     }

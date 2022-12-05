@@ -12,8 +12,7 @@ public class UserService {
 
     public boolean register(UserDto userDto) {
         boolean welcomeEmailSuccess = mailService.sendWelcomeEmail(userDto);
-
-        //
+        // some other stuff here
         return welcomeEmailSuccess;
     }
 }

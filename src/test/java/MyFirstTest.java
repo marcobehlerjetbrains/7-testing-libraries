@@ -15,6 +15,7 @@ import java.util.concurrent.Callable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MyFirstTest {
 
@@ -26,8 +27,11 @@ public class MyFirstTest {
 
     @Test
     public void assertj() {
-       /* assertEquals(user.name(), "Marco");
-        assertEquals(user.age(), 99);
+
+    /*    assertEquals(userDto.name(), "Marco");
+        assertTrue(userDto.name().startsWith("Ma"));*/
+
+       /*
 
         assertThat(user.name()).isEqualTo("Marco");
         assertThat(user.name()).doesNotContainAnyWhitespaces();
@@ -63,6 +67,8 @@ public class MyFirstTest {
 
     @Test
     public void fileSystemTest() throws IOException {
+        Files.write(Path.of("C:\\Users\\marco\\test.txt"), "Hello.txt".getBytes());
+
         try (FileSystem fileSystem = MemoryFileSystemBuilder.newEmpty().build()) {
             Path txt = fileSystem.getPath("test.txt");
             Files.write(txt, "Hello World".getBytes());
