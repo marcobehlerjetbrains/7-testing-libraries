@@ -1,8 +1,13 @@
+import com.github.marschall.memoryfilesystem.MemoryFileSystemBuilder;
 import com.jetbrains.marco.UserDto;
 import com.jetbrains.marco.service.MailService;
 import com.jetbrains.marco.service.UserService;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -55,6 +60,18 @@ public class MyFirstTest {
         assertThat(userRegistered).isTrue();
     }
 
+
+    @Test
+    public void fileSystemTest() throws IOException {
+        try (FileSystem fileSystem = MemoryFileSystemBuilder.newEmpty().build()) {
+            Path txt = fileSystem.getPath("test.txt");
+            Files.write(txt, "Hello World".getBytes());
+
+            assertThat(Files.exists(txt)).isTrue();
+            assertThat(Files.readString(txt)).isEqualTo("Hello World");
+        }
+    }
+
     private void publishAddUserMessage() {
         new Thread(() -> {
             try {
@@ -65,6 +82,8 @@ public class MyFirstTest {
             }
         }).start();
     }
+
+
 
     private Callable<Boolean> newUserWasAdded() {
         return () -> awaitilityUserDtos.size() == 2;
