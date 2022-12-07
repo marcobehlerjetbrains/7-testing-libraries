@@ -21,7 +21,6 @@ public class AwaitilityTest {
 */
 
 
-
     private void publishAddUserMessage() {
         new Thread(() -> {
             try {
@@ -32,7 +31,6 @@ public class AwaitilityTest {
             }
         }).start();
     }
-
 
 
     private Callable<Boolean> newUserWasAdded() {

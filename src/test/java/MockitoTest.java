@@ -1,7 +1,6 @@
 import com.jetbrains.marco.UserDto;
 import com.jetbrains.marco.service.MailService;
 import com.jetbrains.marco.service.UserService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

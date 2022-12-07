@@ -2,21 +2,12 @@ import com.jetbrains.marco.UserDto;
 import com.jetbrains.marco.service.MailService;
 import com.jetbrains.marco.service.UserService;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.subethamail.smtp.TooMuchDataException;
-import org.subethamail.smtp.helper.SimpleMessageListener;
-import org.subethamail.smtp.server.SMTPServer;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 public class WiserTest {
 
@@ -32,7 +23,6 @@ public class WiserTest {
         //start server asynchronously
         wiser.start();
     }
-
 
 
     @AfterAll

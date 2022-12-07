@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -44,8 +43,6 @@ public class AssertJTest {
 
         assertThat(user.age()).isNotEqualTo(22);*/
     }
-
-
 
 
 }
